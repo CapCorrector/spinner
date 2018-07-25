@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    # Build and deploy container with an agent
    config.vm.provision "deploy_container", type: "shell", inline: <<-SHELL
       cd /vagrant
-      bash ./deploy_docker_agent.bash
+      bash ./deploy_docker_listener.bash
    SHELL
 
 
