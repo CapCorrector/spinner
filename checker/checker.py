@@ -1,7 +1,7 @@
 import socket
 
 HOST, PORT = "127.0.0.1", 9999
-data = "get_mem"
+data = "get_cpu"
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     sock.connect((HOST, PORT))

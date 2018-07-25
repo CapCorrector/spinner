@@ -2,6 +2,8 @@ import psutil
 import socketserver
 
 class Monitor(socketserver.BaseRequestHandler):
+	def __init__(self):
+		pass
 	def check_cpu(self):
 		return str(psutil.cpu_percent(interval=1))
 
@@ -16,10 +18,15 @@ class Monitor(socketserver.BaseRequestHandler):
 			self.request.sendall(bytes(self.check_mem(), "utf-8"))
 		else:
 			self.request.sendall(bytes("BAD REQUEST\n", "utf-8"))
+	def unregister(self):
+		print("exiting")
+	
 
 if __name__ == "__main__":
 	HOST, PORT = "0.0.0.0", 999
-	with socketserver.TCPServer((HOST, PORT), Monitor) as server:
-		server.serve_forever()
-
+	try:
+		with socketserver.TCPServer((HOST, PORT), Monitor) as server:
+			server.serve_forever()
+	finally:
+		Monitor.unregister("exiting")
 	
