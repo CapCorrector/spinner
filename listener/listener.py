@@ -12,7 +12,7 @@ class Listener(socketserver.BaseRequestHandler):
 if __name__ == "__main__":
 	HOST, PORT = "0.0.0.0", 998
 	try:
-		with socketserver.TCPServer((HOST, PORT), Monitor) as server:
+		with socketserver.TCPServer((HOST, PORT), Listener) as server:
 			server.serve_forever()
 	finally:
 		print("exiting")
