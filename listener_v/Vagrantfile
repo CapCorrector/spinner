@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.synced_folder ".","/vagrant"
 
    # Make a private network
-   config.vm.network "private_network", ip: "10.0.0.2"
+   config.vm.network "private_network", ip: "10.0.0.200"
    config.vm.network :forwarded_port, guest: 998, host: 9998
 
    # This is using xenial64 as the base box

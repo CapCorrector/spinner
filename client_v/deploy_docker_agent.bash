@@ -3,10 +3,10 @@
 # Stop and remove existing docker entries
 
 echo *** Stopping agent process
-docker stop agent 2>&1 > /dev/null
+docker stop agent > /dev/null 2>&1
 
 echo *** Removig agent process
-docker rm agent 2>&1 > /dev/null
+docker rm agent > /dev/null 2>&1
 
 # Build frontend from inside Vagrant host
 echo *** Build  agent

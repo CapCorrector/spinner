@@ -1,9 +1,6 @@
 import socketserver
 
 class Listener(socketserver.BaseRequestHandler):
-	def __init__(self):
-		pass
-
 	def handle(self):
 		self.data = str(self.request.recv(1024).strip(), "utf-8")
 		print(self.data)

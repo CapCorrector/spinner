@@ -3,10 +3,10 @@
 # Stop and remove existing docker entries
 
 echo *** Stopping listener process
-docker stop listener 2>&1 > /dev/null
+docker stop listener > /dev/null 2>&1
 
 echo *** Removig listener process
-docker rm listener 2>&1 > /dev/null
+docker rm listener > /dev/null 2>&1
 
 # Build frontend from inside Vagrant host
 echo *** Build  listener

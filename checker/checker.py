@@ -1,6 +1,6 @@
 import socket
 
-HOST, PORT = "127.0.0.1", 9999
+HOST, PORT = "127.0.0.1", 9998
 data = "get_cpu"
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -9,6 +9,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 
     # Receive data from the server and shut down
     received = str(sock.recv(1024), "utf-8")
+    sock.close
 
 print("Sent:     {}".format(data))
 print("Received: {}".format(received))
