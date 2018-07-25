@@ -18,7 +18,7 @@ class Monitor(socketserver.BaseRequestHandler):
 			self.request.sendall(bytes("BAD REQUEST\n", "utf-8"))
 
 if __name__ == "__main__":
-	HOST, PORT = "localhost", 999
+	HOST, PORT = "0.0.0.0", 999
 	with socketserver.TCPServer((HOST, PORT), Monitor) as server:
 		server.serve_forever()
 
