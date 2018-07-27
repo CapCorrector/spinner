@@ -6,6 +6,7 @@ import os
 class Monitor(socketserver.BaseRequestHandler):
 	def register(self):
 		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as self.sock:
+		    self.sock.settimeout(5)
 		    self.sock.connect((LHOST, LPORT))
 		    self.sock.sendall(bytes("REG: " + os.environ.get('HOSTIP') + "\n", "utf-8"))
 		    self.sock.close()
@@ -25,6 +26,7 @@ class Monitor(socketserver.BaseRequestHandler):
 			self.request.sendall(bytes("BAD REQUEST\n", "utf-8"))
 	def unregister(self):
 		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as self.sock:
+			self.sock.settimeout(5)
 			self.sock.connect((LHOST, LPORT))
 			self.sock.sendall(bytes("UNREG: " + os.environ.get('HOSTIP') + "\n", "utf-8"))
 			self.sock.close()
