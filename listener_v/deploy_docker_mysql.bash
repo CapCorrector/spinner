@@ -16,6 +16,10 @@ docker pull mysql/mysql-server:latest
 echo *** Run mysql and map to port 3306 on Vagrant host
 mkdir -p /etc/mysql
 mkdir -p /var/lib/mysql/mysqlmon
-cp -f /vagrant/my.cnf /etc/mysql/d_monmy.cnf
+cp -f /vagrant/mysql/my.cnf /etc/mysql/d_monmy.cnf
 docker run --restart=always --name=mysql-mon -d -p 3306:3306 --mount type=bind,src=/etc/mysql/d_monmy.cnf,dst=/etc/my.cnf --mount type=bind,src=/var/lib/mysql/mysqlmon,dst=/var/lib/mysql mysql/mysql-server:latest
+until docker logs mysql-mon 2>&1 | grep GENERATED; do
+  echo "Waiting for container"
+  sleep 1
+done
 docker logs mysql-mon 2>&1 | grep GENERATED > /vagrant/mysql.pass
