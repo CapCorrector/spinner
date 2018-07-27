@@ -4,10 +4,10 @@ import socket
 import os
 
 class Monitor(socketserver.BaseRequestHandler):
-	def __init__(self):
+	def register(self):
 		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as self.sock:
 		    self.sock.connect((LHOST, LPORT))
-		    self.sock.sendall(bytes(os.environ.get('HOSTIP') + "\n", "utf-8"))
+		    self.sock.sendall(bytes("REG: " + os.environ.get('HOSTIP') + "\n", "utf-8"))
 		    self.sock.close()
 	def check_cpu(self):
 		return str(psutil.cpu_percent(interval=1))
@@ -24,15 +24,18 @@ class Monitor(socketserver.BaseRequestHandler):
 		else:
 			self.request.sendall(bytes("BAD REQUEST\n", "utf-8"))
 	def unregister(self):
-		print("exiting")
-	
+		with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as self.sock:
+			self.sock.connect((LHOST, LPORT))
+			self.sock.sendall(bytes("UNREG: " + os.environ.get('HOSTIP') + "\n", "utf-8"))
+			self.sock.close()
 
 if __name__ == "__main__":
 	LHOST, LPORT = "10.0.0.200", 998
 	HOST, PORT = "0.0.0.0", 999
 	try:
 		with socketserver.TCPServer((HOST, PORT), Monitor) as server:
+			Monitor.register(server)
 			server.serve_forever()
 	finally:
-		Monitor.unregister("exiting")
+		Monitor.unregister(server)
 	

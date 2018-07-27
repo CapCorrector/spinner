@@ -32,12 +32,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       sudo usermod -aG docker ubuntu
    SHELL
 
-   # Build and deploy container with an agent
-   config.vm.provision "deploy_container", type: "shell", inline: <<-SHELL
+   # Build and deploy container with the listener
+   config.vm.provision "deploy_listener", type: "shell", inline: <<-SHELL
       cd /vagrant
       bash ./deploy_docker_listener.bash
    SHELL
 
+
+   # Build and deploy container with the listener
+   config.vm.provision "deploy_mysql", type: "shell", inline: <<-SHELL
+      cd /vagrant
+      bash ./deploy_docker_mysql.bash
+   SHELL
 
 
 end
