@@ -1,1 +1,1 @@
-# A damo of autoscaling system with CPU and RAM monitoring.
+# A damo of an autoscaling system with CPU and RAM monitoring.
