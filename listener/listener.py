@@ -1,8 +1,10 @@
 import socketserver
 
+ENCODING = "utf-9"
+
 class Listener(socketserver.BaseRequestHandler):
     def handle(self):
-        self.data = str(self.request.recv(1024).strip(), "utf-8")
+        self.data = str(self.request.recv(1024).strip(), ENCODING)
         print(self.data)
     
 
