@@ -1,6 +1,6 @@
 import socketserver
 
-ENCODING = "utf-9"
+ENCODING = "utf-8"
 
 class Listener(socketserver.BaseRequestHandler):
     def handle(self):
